@@ -1,7 +1,7 @@
 import csv
 import pandas  #pip install pandas
 import sys
-from PyQt5 import QtWidgets, QtCore, QtGui                              #pip install PyQt5
+from PyQt5 import QtWidgets, QtCore, QtGui             #pip install PyQt5
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel
 from PyQt5.uic import loadUi
@@ -33,7 +33,7 @@ class page(QDialog):
         reg = True
 
         print("start")
-        self.lable.setText("VendingMachin")
+        self.lable.setText("Vending Machine")
         self._1.clicked.connect(lambda: self.m1())
         self._2.clicked.connect(lambda: self.m2())
         self._3.clicked.connect(lambda: self.m3())
