@@ -1,7 +1,7 @@
 import csv
-import pandas  #pip install pandas
+import pandas        #pip install pandas
 import sys
-from PyQt5 import QtWidgets, QtCore, QtGui             #pip install PyQt5
+from PyQt5 import QtWidgets, QtCore, QtGui         #pip install PyQt5
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel
 from PyQt5.uic import loadUi
@@ -33,7 +33,7 @@ class page(QDialog):
         reg = True
 
         print("start")
-        self.lable.setText("Vending Machine")
+        self.lable.setText("VendingMachin")
         self._1.clicked.connect(lambda: self.m1())
         self._2.clicked.connect(lambda: self.m2())
         self._3.clicked.connect(lambda: self.m3())
@@ -57,61 +57,61 @@ class page(QDialog):
 
     def m1(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <=14:
+        if "Product code:" in text and len(text) <=15:
             self.display.setText(text+"1")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"1")
     def m2(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"2")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"2")
     def m3(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"3")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"3")
     def m4(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"4")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"4")
     def m5(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"5")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"5")
     def m6(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"6")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"6")
     def m7(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"7")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"7")
     def m8(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"8")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"8")
     def m9(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"9")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"9")
     def m0(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) <= 14:
+        if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"0")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"0")
@@ -129,7 +129,7 @@ class page(QDialog):
 
     def mback(self):
         text = self.display.text()
-        if "Product code:" in text and len(text)>13:
+        if "Product code:" in text and len(text)>14:
             x = len(text) - 1
             a = text[0:x]
             self.display.setText(a)
@@ -140,8 +140,8 @@ class page(QDialog):
 
     def menter(self):
         text = self.display.text()
-        if "Product code:" in text and len(text) == 15:
-            prd_code = text[13:15]
+        if "Product code:" in text and len(text) == 16:
+            prd_code = text[13:16]
             print(prd_code)
             try:
                 self.product_get(prd_code)
@@ -152,6 +152,7 @@ class page(QDialog):
             if pass_code == "00":
                 self.table()
                 self.display.setText("Product code:")
+                self.lable_2.clear()
             else:
                 self.display.setText("Product code:")
 
@@ -228,43 +229,68 @@ class page(QDialog):
     def producttake(self):
         self.display.setText("Product code:")
         self.lable_2.setText(" ")
-        self.lable.setText("VendingMachin")
+        self.lable.setText("VendingMachine")
         self.product.setVisible(False)
 
     def productshow(self,product):
         self.display.clear()
         self.display.setText(product)
         self.product.setVisible(True)
-        self.product.setText(product)
+        if product == 'Coke':
+            self.product.setIcon(QtGui.QIcon('product/co.png'))
+        if product == 'Lays':
+            self.product.setIcon(QtGui.QIcon('product/la.png'))
+        if product == 'Pepsi':
+            self.product.setIcon(QtGui.QIcon('product/pe.png'))
+        if product == 'Maaza':
+            self.product.setIcon(QtGui.QIcon('product/ma.png'))
+        if product == 'Bingo':
+            self.product.setIcon(QtGui.QIcon('product/bi.png'))
+        if product == 'Water':
+            self.product.setIcon(QtGui.QIcon('product/wa.png'))
+        if product == 'Diary Milk':
+            self.product.setIcon(QtGui.QIcon('product/da.png'))
+        if product == 'Doritos':
+            self.product.setIcon(QtGui.QIcon('product/do.png'))
+        if product == 'Mountain dew':
+            self.product.setIcon(QtGui.QIcon('product/md.png'))
+
+
 
     def product_get(self, p_code):
         lists = data_base()
         selected = int(p_code)
         money = int(self.wallet.text())
-
+        nop = False
         stkre = True
         for i in (lists):
             if i[3] <= '0':
-                self.mmanage()
+                nop = True
 
-        for i in (lists):
-            if selected == int(i[1]):
-                if money > int(i[2]):
-                    change = money - int(i[2])
-                    product_sub(lists.index(i), int(i[3]))
-                    wallet = change
-                else:
-                    print("money in wallet is not enough\nYour drink is cancled")
-                    change = money
-                    break
-                product = str(i[0])
-                self.lable_2.setText("Rs: "+i[2])
-                self.productshow(product)
-                self.lable.setText("Thank you. Please visit again")
-            elif selected != int(i[1]):
-                self.lable_2.setText("Invalid code")
-        self.wallet.setText(str(wallet))
+        if nop != True:
+            for i in (lists):
+                if selected == int(i[1]):
+                    if money > int(i[2]):
+                        change = money - int(i[2])
+                        product_sub(lists.index(i), int(i[3]))
+                        wallet = change
+                    else:
+                        print("money in wallet is not enough\nYour drink is cancled")
+                        change = money
+                        break
+                    product = str(i[0])
+                    self.lable_2.setText("Rs: "+i[2])
+                    self.productshow(product)
+                    self.lable.setText("Thank you. Please visit again")
+                    if int(selected) != int(i[1]):
+                        print(int(selected) != int(i[1]))
+                        self.lable_2.setText("Invalid code")
+                        self.display.setText("Product code:")
 
+            self.wallet.setText(str(wallet))
+        else:
+            self.lable_2.setText("stock need to be added")
+            self.mmanage()
 
 app = QApplication(sys.argv)
 mainwindow = page()
