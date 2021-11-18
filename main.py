@@ -1,3 +1,4 @@
+#import
 import csv
 import pandas        #pip install pandas
 import sys
@@ -8,7 +9,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QMessageBox
 
 
-def data_base():
+def data_base(): #data from csv file
     file = open("stock.csv", "r")
     reader = csv.reader(file)
     lists = []
@@ -20,18 +21,18 @@ def data_base():
     print(lists)
     return lists
 
-def product_sub(ind,stak):
+def product_sub(ind,stak):# -1 the no of product
     stk = pandas.read_csv("stock.csv")
     stk.loc[ind, "STOCK"] = str(stak-1)
     stk.to_csv(r"stock.csv", index=False)
 
-class page(QDialog):
+class page(QDialog):#class function to use the gui created
     def __init__(self):
         super (page,self).__init__()
         loadUi("vm.ui", self)
         global reg
         reg = True
-
+        #self using the variables from the .ui file
         print("start")
         self.lable.setText("VendingMachin")
         self._1.clicked.connect(lambda: self.m1())
@@ -54,7 +55,8 @@ class page(QDialog):
         self.lable_2.setText("")
         self.product.setVisible(False)
         self.Manage.setVisible(False)
-
+    #===================================================================================
+    # function for the buttons
     def m1(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <=15:
@@ -115,7 +117,7 @@ class page(QDialog):
             self.display.setText(text+"0")
         if "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"0")
-
+    #===================================================================================
     def mmanage(self):
         global manade
         manage = True
@@ -138,8 +140,9 @@ class page(QDialog):
             a = text[0:x]
             self.display.setText(a)
 
-    def menter(self):
+    def menter(self):# Enter button
         text = self.display.text()
+        #product code checking(by user)
         if "Product code:" in text and len(text) == 16:
             prd_code = text[13:16]
             print(prd_code)
@@ -147,6 +150,7 @@ class page(QDialog):
                 self.product_get(prd_code)
             except:
                 print()
+        #pass code enter (by owner)
         elif "Passcode:" in text and len(text) == 11:
             pass_code = text[9:11]
             if pass_code == "00":
@@ -155,7 +159,10 @@ class page(QDialog):
                 self.lable_2.clear()
             else:
                 self.display.setText("Product code:")
-
+                
+    #===================================================================================
+    
+    # creating a gui table from the csv file 
     def table(self):
         self.Manage.setVisible(True)
         self.tableWidget.setColumnWidth(0,180)
@@ -179,7 +186,8 @@ class page(QDialog):
                 slist.append(a)
             tlist.append(slist)
         print(tlist)
-
+       
+    #saving the changed file  
     def save_ch(self):
         chk,newlist = self.checkdiff()
         if chk == True:
@@ -188,7 +196,8 @@ class page(QDialog):
             print("righ")
             data = pandas.DataFrame(newlist,columns=["PRODUCT","PRODUCT_CODE","COST","STOCK"])
             data.to_csv("stock.csv", index=False)
-
+   
+    #closing the table
     def back_sim(self):
         print("good")
         chk, newlist = self.checkdiff()
@@ -205,8 +214,7 @@ class page(QDialog):
                 self.Manage.setVisible(False)
             else:
                 self.Manage.setVisible(False)
-
-
+    
     def checkdiff(self):
         list = data_base()
         _2nd = []
@@ -225,13 +233,15 @@ class page(QDialog):
         print(chk)
         return chk,_2nd
 
-    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   #===================================================================================
+    
     def producttake(self):
         self.display.setText("Product code:")
         self.lable_2.setText(" ")
         self.lable.setText("VendingMachine")
         self.product.setVisible(False)
-
+        
+    # Displaying the bought item
     def productshow(self,product):
         self.display.clear()
         self.display.setText(product)
@@ -256,7 +266,7 @@ class page(QDialog):
             self.product.setIcon(QtGui.QIcon('product/md.png'))
 
 
-
+    #checking and displaying the product 
     def product_get(self, p_code):
         lists = data_base()
         selected = int(p_code)
@@ -291,7 +301,10 @@ class page(QDialog):
         else:
             self.lable_2.setText("stock need to be added")
             self.mmanage()
+            
+#===================================================================================
 
+#calling the class function
 app = QApplication(sys.argv)
 mainwindow = page()
 widget = QtWidgets.QStackedWidget()
@@ -303,3 +316,4 @@ try:
     sys.exit(app.exec_())
 except:
     print("exit")
+# ========================================================END OF PROGRAM==========================================
