@@ -17,8 +17,6 @@ def data_base(): #data from csv file
         lists.append(row)
     lists.remove(['PRODUCT', 'PRODUCT_CODE', 'COST', 'STOCK'])
     file.flush()
-
-    print(lists)
     return lists
 
 def product_sub(ind,stak):# -1 the no of product
@@ -53,69 +51,94 @@ class page(QDialog):#class function to use the gui created
         self.back.clicked.connect(lambda: self.mback())
         self.Mng.clicked.connect(lambda: self.mmanage())
         self.lable_2.setText("")
+        self.display.setText("Enter Money:")
+        self.wallet.setText("0")
         self.product.setVisible(False)
         self.Manage.setVisible(False)
+        
+        
     #===================================================================================
     # function for the buttons
     def m1(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <=15:
             self.display.setText(text+"1")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
             self.display.setText(text+"1")
+        elif "Enter Money:" in text and len(text)<=15:
+            self.display.setText(text+"1")
+        
     def m2(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"2")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"2")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"2")
     def m3(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"3")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"3")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"3")
     def m4(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"4")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"4")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"4")
     def m5(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"5")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"5")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"5")
     def m6(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"6")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"6")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"6")
     def m7(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"7")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11: 
+            self.display.setText(text+"7")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"7")
     def m8(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"8")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"8")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"8")
     def m9(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"9")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"9")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"9")
     def m0(self):
         text = self.display.text()
         if "Product code:" in text and len(text) <= 15:
             self.display.setText(text+"0")
-        if "Passcode:" in text and len(text) < 11:
+        elif "Passcode:" in text and len(text) < 11:
+            self.display.setText(text+"0")
+        elif "Enter Money:" in text and len(text)<=15:
             self.display.setText(text+"0")
     #===================================================================================
     def mmanage(self):
@@ -126,12 +149,17 @@ class page(QDialog):#class function to use the gui created
         self.display.setText("Passcode:")
 
     def mcancel(self):
-        self.display.setText("Product code:")
-        self.lable_2.setText("")
+        if  "Enter Money:" not in self.display.text():
+            self.display.setText("Product code:")
+            self.lable_2.setText("")
 
     def mback(self):
         text = self.display.text()
-        if "Product code:" in text and len(text)>14:
+        if  "Enter Money:" in text and len(text) >12:
+            x = len(text) - 1
+            a = text[0:x]
+            self.display.setText(a)
+        elif "Product code:" in text and len(text)>10:
             x = len(text) - 1
             a = text[0:x]
             self.display.setText(a)
@@ -145,7 +173,6 @@ class page(QDialog):#class function to use the gui created
         #product code checking(by user)
         if "Product code:" in text and len(text) == 16:
             prd_code = text[13:16]
-            print(prd_code)
             try:
                 self.product_get(prd_code)
             except:
@@ -159,7 +186,15 @@ class page(QDialog):#class function to use the gui created
                 self.lable_2.clear()
             else:
                 self.display.setText("Product code:")
-                
+        elif "Enter Money:" in text and len(text) <= 16:
+            a = text[12:]
+            b = self.wallet.text()
+            if len(a) >1:
+                self.lable.setText("")
+                self.wallet.setText(str(int(a)+int(b)))
+                self.display.setText("Product code:")
+            
+        
     #===================================================================================
     
     # creating a gui table from the csv file 
@@ -185,7 +220,6 @@ class page(QDialog):#class function to use the gui created
                 a = self.tableWidget.item(row, col).text()
                 slist.append(a)
             tlist.append(slist)
-        print(tlist)
        
     #saving the changed file  
     def save_ch(self):
@@ -193,22 +227,17 @@ class page(QDialog):#class function to use the gui created
         if chk == True:
             pass
         else:
-            print("righ")
             data = pandas.DataFrame(newlist,columns=["PRODUCT","PRODUCT_CODE","COST","STOCK"])
             data.to_csv("stock.csv", index=False)
    
     #closing the table
     def back_sim(self):
-        print("good")
         chk, newlist = self.checkdiff()
         if chk == True:
             self.Manage.setVisible(False)
         else:
-            print(-1)
             qm = QtWidgets.QMessageBox
-            print(-2)
             ret = qm.question(self,'', "Do you want to save the change before leaving?", qm.Yes | qm.No)
-            print(-3)
             if ret == qm.Yes:
                 self.save_ch()
                 self.Manage.setVisible(False)
@@ -224,13 +253,10 @@ class page(QDialog):#class function to use the gui created
                 a = self.tableWidget.item(row, col).text()
                 slist.append(a)
             _2nd.append(slist)
-        print(list)
-        print(_2nd)
         if _2nd == list:
             chk = True
         else:
             chk = False
-        print(chk)
         return chk,_2nd
 
    #===================================================================================
@@ -285,15 +311,15 @@ class page(QDialog):#class function to use the gui created
                         product_sub(lists.index(i), int(i[3]))
                         wallet = change
                     else:
-                        print("money in wallet is not enough\nYour drink is cancled")
+                        self.lable.setText("money in wallet is not enough\nYour drink is cancled")
+                        self.display.setText("Enter Money:")
                         change = money
                         break
                     product = str(i[0])
-                    self.lable_2.setText("Rs: "+i[2])
+                    self.lable_2.setText("Rs: "+i[2]+"\tBalance: "+str(change))
                     self.productshow(product)
                     self.lable.setText("Thank you. Please visit again")
                     if int(selected) != int(i[1]):
-                        print(int(selected) != int(i[1]))
                         self.lable_2.setText("Invalid code")
                         self.display.setText("Product code:")
 
